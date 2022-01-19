@@ -1,0 +1,36 @@
+﻿@inject HttpClient HttpClient
+
+<div class="dialog-container">
+    <div class="dialog">
+        <div class="dialog-title">
+            <h2>@Burger.Special.Name</h2>
+            @Burger.Special.Description
+        </div>
+        <form class="dialog-body">
+            <div>
+                <label>Tamaño:</label>
+                <input type="range" min="@Burger.MinimumSize" max="@Burger.MaximumSize" step="1" @bind="Burger.Size" @bind:event="oninput"/>
+                <span class="size-label">
+                    @(Burger.Size)" (€@(Burger.GetFormattedTotalPrice()))
+                </span>
+            </div>
+            
+        </form>
+
+        <div class="dialog-buttons">
+            <button class="btn btn-secondary mr-auto" @onclick="OnCancel">Cancelar</button>
+            <span class="mr-center">
+                Precio: <span class="price">@(Burger.GetFormattedTotalPrice())</span>
+            </span>
+            <button class="btn btn-success ml-auto" @onclick="OnConfirm">Añadir +</button>
+        </div>
+    </div>
+</div>
+
+@code {
+
+    [Parameter] public Burger Burger { get; set; }
+    [Parameter] public EventCallback OnCancel { get; set; }
+    [Parameter] public EventCallback OnConfirm { get; set; }
+
+}
