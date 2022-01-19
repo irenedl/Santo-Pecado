@@ -19,6 +19,32 @@
     </ul>
 </div>
 
+<div class="sidebar">
+    @if (order.Burgers.Any())
+    {
+        <div class="order-contents">
+            <h2>Tu pedido</h2>
+
+            @foreach (var configuredBurger in order.Burgers)
+            {
+                <ConfiguredBurgerItem Burger="configuredBurger" OnRemoved="@(() => RemoveConfiguredBurger(configuredBurger))" />
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-cart">Elige una burger<br> y comenzamos tu pedido.</div>
+    }
+
+    <div class="order-total @(order.Burgers.Any() ? "" : "hidden")">
+        Total: 
+        <span class="total-price">@order.GetFormattedTotalPrice()</span>
+        <button class="btn btn-warning" disabled="@(order.Burgers.Count == 0)" @onclick="PlaceOrder">
+            Pedir >
+        </button>
+    </div>
+</div>
+
 
 @if (showingConfigureDialog)
 {
@@ -32,6 +58,7 @@
     List<BurgerSpecial> specials;
     Burger configuringBurger;
     bool showingConfigureDialog;
+    Order order = new Order();
 
     protected override async Task OnInitializedAsync()
     {
@@ -59,10 +86,21 @@
 
     void ConfirmConfigureBurgerDialog()
     {
+        order.Burgers.Add(configuringBurger);
         configuringBurger = null;
 
         showingConfigureDialog = false;
     }
 
+    void RemoveConfiguredBurger(Burger burger)
+    {
+        order.Burgers.Remove(burger);
+    }
+
+    async Task PlaceOrder()
+    {
+        await HttpClient.PostAsJsonAsync("orders", order);
+        order = new Order();
+    }
 }
 
