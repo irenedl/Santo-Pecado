@@ -7,7 +7,7 @@
         {
             @foreach (var special in specials)
             {
-                <li style="background-image: url('@special.ImageUrl')">
+                <li @onclick="@(() => ShowConfigureBurgerDialog(special))" style="background-image: url('@special.ImageUrl')">
                     <div class="burger-info">
                         <span class="title">@special.Name</span>
                         @special.Description
@@ -19,11 +19,50 @@
     </ul>
 </div>
 
+
+@if (showingConfigureDialog)
+{
+    <ConfigureBurgerDialog
+        Burger="configuringBurger"
+        OnCancel="CancelConfigureBurgerDialog"
+        OnConfirm="ConfirmConfigureBurgerDialog" />
+}
+
 @code {
     List<BurgerSpecial> specials;
+    Burger configuringBurger;
+    bool showingConfigureDialog;
 
     protected override async Task OnInitializedAsync()
     {
         specials = await HttpClient.GetFromJsonAsync<List<BurgerSpecial>>("specials");
     }
+
+    void ShowConfigureBurgerDialog(BurgerSpecial special)
+    {
+        configuringBurger = new Burger()
+        {
+            Special = special,
+            SpecialId = special.Id,
+            Size = Burger.DefaultSize,
+            Toppings = new List<BurgerTopping>(),
+        };
+
+        showingConfigureDialog = true;
+    }
+
+    void CancelConfigureBurgerDialog()
+    {
+        configuringBurger = null;
+        showingConfigureDialog = false;
+    }
+
+    void ConfirmConfigureBurgerDialog()
+    {
+        configuringBurger = null;
+
+        showingConfigureDialog = false;
+    }
+
 }
+

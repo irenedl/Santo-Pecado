@@ -249,6 +249,7 @@ form {
     .order-total .total-price {
         font-weight: 700;
         font-size: 1.5rem;
+        margin-left: 5px;
     }
 
         .order-total .total-price::after {
