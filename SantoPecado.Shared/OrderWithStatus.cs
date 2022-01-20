@@ -7,13 +7,13 @@ namespace SantoPecado
     public class OrderWithStatus
     {
         public readonly static TimeSpan PreparationDuration = TimeSpan.FromSeconds(10);
-        public readonly static TimeSpan DeliveryDuration = TimeSpan.FromMinutes(1); // Unrealistic, but more interesting to watch
+        public readonly static TimeSpan DeliveryDuration = TimeSpan.FromMinutes(1);
 
         public Order Order { get; set; }
 
         public string StatusText { get; set; }
 
-        public bool IsDelivered => StatusText == "Delivered";
+        public bool IsDelivered => StatusText == "Entregado";
 
         public List<Marker> MapMarkers { get; set; }
 
@@ -27,31 +27,31 @@ namespace SantoPecado
 
             if (DateTime.Now < dispatchTime)
             {
-                statusText = "Preparing";
+                statusText = "Preparando";
                 mapMarkers = new List<Marker>
                 {
-                    ToMapMarker("You", order.DeliveryLocation, showPopup: true)
+                    ToMapMarker("Tú", order.DeliveryLocation, showPopup: true)
                 };
             }
             else if (DateTime.Now < dispatchTime + DeliveryDuration)
             {
-                statusText = "Out for delivery";
+                statusText = "En camino";
 
                 var startPosition = ComputeStartPosition(order);
                 var proportionOfDeliveryCompleted = Math.Min(1, (DateTime.Now - dispatchTime).TotalMilliseconds / DeliveryDuration.TotalMilliseconds);
                 var driverPosition = LatLong.Interpolate(startPosition, order.DeliveryLocation, proportionOfDeliveryCompleted);
                 mapMarkers = new List<Marker>
                 {
-                    ToMapMarker("You", order.DeliveryLocation),
-                    ToMapMarker("Driver", driverPosition, showPopup: true),
+                    ToMapMarker("Tú", order.DeliveryLocation),
+                    ToMapMarker("Repartidor", driverPosition, showPopup: true),
                 };
             }
             else
             {
-                statusText = "Delivered";
+                statusText = "Entregado";
                 mapMarkers = new List<Marker>
                 {
-                    ToMapMarker("Delivery location", order.DeliveryLocation, showPopup: true),
+                    ToMapMarker("Dirección de entrega", order.DeliveryLocation, showPopup: true),
                 };
             }
 

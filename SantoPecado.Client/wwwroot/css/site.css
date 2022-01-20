@@ -37,12 +37,13 @@ form {
 
 .logo {
     display: flex;
+    height: 4rem;
 }
 
     .logo > img {
         margin-right: 3rem;
         width: 8rem;
-        color:#08af08;
+        margin-top: 15px;
     }
 
 .content {
