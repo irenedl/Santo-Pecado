@@ -7,7 +7,7 @@
         {
             @foreach (var special in specials)
             {
-                <li style="background-image: url('@special.ImageUrl')">
+                <li @onclick="@(() => ShowConfigureBurgerDialog(special))" style="background-image: url('@special.ImageUrl')">
                     <div class="burger-info">
                         <span class="title">@special.Name</span>
                         @special.Description
@@ -19,11 +19,88 @@
     </ul>
 </div>
 
+<div class="sidebar">
+    @if (order.Burgers.Any())
+    {
+        <div class="order-contents">
+            <h2>Tu pedido</h2>
+
+            @foreach (var configuredBurger in order.Burgers)
+            {
+                <ConfiguredBurgerItem Burger="configuredBurger" OnRemoved="@(() => RemoveConfiguredBurger(configuredBurger))" />
+            }
+        </div>
+    }
+    else
+    {
+        <div class="empty-cart">Elige una burger<br> y comenzamos tu pedido.</div>
+    }
+
+    <div class="order-total @(order.Burgers.Any() ? "" : "hidden")">
+        Total: 
+        <span class="total-price">@order.GetFormattedTotalPrice()</span>
+        <button class="btn btn-warning" disabled="@(order.Burgers.Count == 0)" @onclick="PlaceOrder">
+            Pedir >
+        </button>
+    </div>
+</div>
+
+
+@if (showingConfigureDialog)
+{
+    <ConfigureBurgerDialog
+        Burger="configuringBurger"
+        OnCancel="CancelConfigureBurgerDialog"
+        OnConfirm="ConfirmConfigureBurgerDialog" />
+}
+
 @code {
     List<BurgerSpecial> specials;
+    Burger configuringBurger;
+    bool showingConfigureDialog;
+    Order order = new Order();
 
     protected override async Task OnInitializedAsync()
     {
         specials = await HttpClient.GetFromJsonAsync<List<BurgerSpecial>>("specials");
     }
+
+    void ShowConfigureBurgerDialog(BurgerSpecial special)
+    {
+        configuringBurger = new Burger()
+        {
+            Special = special,
+            SpecialId = special.Id,
+            Size = Burger.DefaultSize,
+            Toppings = new List<BurgerTopping>(),
+        };
+
+        showingConfigureDialog = true;
+    }
+
+    void CancelConfigureBurgerDialog()
+    {
+        configuringBurger = null;
+        showingConfigureDialog = false;
+    }
+
+    void ConfirmConfigureBurgerDialog()
+    {
+        order.Burgers.Add(configuringBurger);
+        configuringBurger = null;
+
+        showingConfigureDialog = false;
+    }
+
+    void RemoveConfiguredBurger(Burger burger)
+    {
+        order.Burgers.Remove(burger);
+    }
+
+    async Task PlaceOrder()
+    {
+        await HttpClient.PostAsJsonAsync("orders", order);
+        order = new Order();
+    }
 }
+
