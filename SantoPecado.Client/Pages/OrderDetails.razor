@@ -1,9 +1,36 @@
 ﻿@page "/myorders/{orderId:int}"
 @using System.Threading
 @inject HttpClient HttpClient
+@implements IDisposable
 
 <div class="main">
-    //TODO
+    @if (invalidOrder)
+    {
+        <h2>Nope</h2>
+        <p>Lo sentimos, no se pudo cargar este pedido.</p>
+    }
+    else if (orderWithStatus == null)
+    {
+        <text>Cargando...</text>
+    }
+    else
+    {
+        <div class="track-order">
+            <div class="track-order-title">
+                <h2>
+                    Pedido realizado @orderWithStatus.Order.CreatedTime.ToLongDateString()
+                </h2>
+                <p class="ml-auto mb-0">
+                    Estado: <strong>@orderWithStatus.StatusText</strong>
+                </p>
+            </div>
+            <div class="track-order-body">
+                <div class="track-order-details">
+                    <OrderReview Order="orderWithStatus.Order" />
+                </div>
+            </div>
+        </div>
+    }
 </div>
 
 @code {
@@ -50,5 +77,9 @@
                 StateHasChanged();
             }
         }
+    }
+    void IDisposable.Dispose()
+    {
+        pollingCancellationToken?.Cancel();
     }
 }
