@@ -9,7 +9,7 @@
         {
             @foreach (var special in specials)
             {
-                <li @onclick="@(() => ShowConfigureBurgerDialog(special))" style="background-image: url('@special.ImageUrl')">
+                <li @onclick="@(() => OrderState.ShowConfigureBurgerDialog(special))" style="background-image: url('@special.ImageUrl')">
                     <div class="burger-info">
                         <span class="title">@special.Name</span>
                         @special.Description
@@ -22,14 +22,14 @@
 </div>
 
 <div class="sidebar">
-    @if (order.Burgers.Any())
+    @if (Order.Burgers.Any())
     {
         <div class="order-contents">
             <h2>Tu pedido</h2>
 
-            @foreach (var configuredBurger in order.Burgers)
+            @foreach (var configuredBurger in Order.Burgers)
             {
-                <ConfiguredBurgerItem Burger="configuredBurger" OnRemoved="@(() => RemoveConfiguredBurger(configuredBurger))" />
+                <ConfiguredBurgerItem Burger="configuredBurger" OnRemoved="@(() => OrderState.RemoveConfiguredBurger(configuredBurger))" />
             }
         </div>
     }
@@ -38,10 +38,10 @@
         <div class="empty-cart">Elige una burger<br> y comenzamos tu pedido.</div>
     }
 
-    <div class="order-total @(order.Burgers.Any() ? "" : "hidden")">
+    <div class="order-total @(Order.Burgers.Any() ? "" : "hidden")">
         Total: 
-        <span class="total-price">@order.GetFormattedTotalPrice()</span>
-        <button class="btn btn-warning" disabled="@(order.Burgers.Count == 0)" @onclick="PlaceOrder">
+        <span class="total-price">@Order.GetFormattedTotalPrice()</span>
+        <button class="btn btn-warning" disabled="@(Order.Burgers.Count == 0)" @onclick="PlaceOrder">
             Pedir >
         </button>
     </div>
