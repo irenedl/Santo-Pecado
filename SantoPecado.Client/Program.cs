@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SantoPecado.Client
 {
-    public class Program
+    public class Programm
     {
         public static async Task Main(string[] args)
         {
