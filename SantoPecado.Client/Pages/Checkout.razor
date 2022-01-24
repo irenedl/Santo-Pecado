@@ -4,22 +4,26 @@
 @inject NavigationManager NavigationManager
 
 <div class="main">
-    <div class="checkout-cols">
-        <div class="checkout-order-details">
-            <h4>Revisar pedido</h4>
-            <OrderReview Order="OrderState.Order" />
+    <EditForm Model="OrderState.Order.DeliveryAddress" OnValidSubmit="PlaceOrder">
+        <div class="checkout-cols">
+            <div class="checkout-order-details">
+                <h4>Revisar pedido</h4>
+                <OrderReview Order="OrderState.Order" />
+            </div>
+
+            <div class="checkout-delivery-address">
+                <h4>Entregar a...</h4>
+                <AddressEditor Address="OrderState.Order.DeliveryAddress" />
+            </div>
+
         </div>
 
-        <div class="checkout-delivery-address">
-            <h4>Entregar a...</h4>
-            <AddressEditor Address="OrderState.Order.DeliveryAddress" />
-        </div>
+        <button class="checkout-button btn btn-warning" @onclick="PlaceOrder">
+            Realizar pedido
+        </button>
 
-    </div>
-
-    <button class="checkout-button btn btn-warning" @onclick="PlaceOrder">
-        Realizar pedido
-    </button>
+        <DataAnnotationsValidator />
+    </EditForm>
 </div>
 
 @code {

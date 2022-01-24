@@ -724,7 +724,7 @@ input[type=range] {
 }
 
 .validation-message {
-    color: red;
+    color: #df0000;
 }
 
 #blazor-error-ui {
