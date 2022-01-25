@@ -10,7 +10,7 @@ namespace SantoPecado.Server
 {
     [Route("orders")]
     [ApiController]
-    // [Authorize]
+    [Authorize]
     public class OrdersController : Controller
     {
         private readonly BurgerStoreContext _db;
@@ -99,10 +99,10 @@ namespace SantoPecado.Server
             // order delivery progress and send us notifications when it
             // changes. Since we don't have any such process here, fake it.
             await Task.Delay(OrderWithStatus.PreparationDuration);
-            await SendNotificationAsync(order, subscription, "Your order has been dispatched!");
+            await SendNotificationAsync(order, subscription, "Su pedido ha sido enviado.");
 
             await Task.Delay(OrderWithStatus.DeliveryDuration);
-            await SendNotificationAsync(order, subscription, "Your order is now delivered. Enjoy!");
+            await SendNotificationAsync(order, subscription, "Su pedido ha sido entregado. ¡Disfrútelo!");
         }
 
         private static Task SendNotificationAsync(Order order, NotificationSubscription subscription, string message)
