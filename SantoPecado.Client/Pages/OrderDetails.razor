@@ -1,6 +1,7 @@
 ﻿@page "/myorders/{orderId:int}"
 @using System.Threading
 @inject HttpClient HttpClient
+@inject OrdersClient OrdersClient
 @implements IDisposable
 
 <div class="main">

@@ -1,5 +1,6 @@
 ﻿@page "/myorders"
 @inject HttpClient HttpClient
+@inject OrdersClient OrdersClient
 
 <div class="main">
     @if (ordersWithStatus == null)

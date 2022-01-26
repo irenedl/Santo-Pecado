@@ -1,6 +1,7 @@
 ﻿@page "/checkout"
 @attribute [Authorize]
 @inject OrderState OrderState
+@inject OrdersClient OrdersClient
 @inject HttpClient HttpClient
 @inject NavigationManager NavigationManager
 
@@ -28,6 +29,8 @@
 </div>
 
 @code {
+    bool isSubmitting;
+    
     async Task PlaceOrder()
     {
         isSubmitting = true;
