@@ -1,8 +1,32 @@
 @page "/authentication/{action}"
+@inject OrderState OrderState
+@inject NavigationManager NavigationManager
 
-<RemoteAuthenticatorView Action="@Action" />
+<RemoteAuthenticatorViewCore
+    TAuthenticationState="BurgerAuthenticationState"
+    AuthenticationState="RemoteAuthenticationState"
+    OnLogInSucceeded="RestoreBurger"
+    Action="@Action" />
 
 @code{
-    [Parameter]
-    public string Action { get; set; }
+    [Parameter] public string Action { get; set; }
+
+    public BurgerAuthenticationState RemoteAuthenticationState { get; set; } = new BurgerAuthenticationState();
+
+    protected override void OnInitialized()
+    {
+        if (RemoteAuthenticationActions.IsAction(RemoteAuthenticationActions.LogIn, Action))
+        {
+            // Preserve the current order so that we don't loose it
+            RemoteAuthenticationState.Order = OrderState.Order;
+        }
+    }
+
+    private void RestoreBurger(BurgerAuthenticationState burgerState)
+    {
+        if (burgerState.Order != null)
+        {
+            OrderState.ReplaceOrder(burgerState.Order);
+        }
+    }
 }

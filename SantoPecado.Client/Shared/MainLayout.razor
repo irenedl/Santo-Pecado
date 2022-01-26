@@ -10,10 +10,12 @@
         <div>Burgers</div>
     </NavLink>
 
-    <NavLink href="myorders" class="nav-tab">
-        <img src="img/delivery-man.png" />
-        <div>Mis Pedidos</div>
-    </NavLink>
+    <AuthorizeView>
+        <NavLink href="myorders" class="nav-tab">
+            <img src="img/delivery-man.png" />
+            <div>Mis Pedidos</div>
+        </NavLink>
+    </AuthorizeView>
 
     <LoginDisplay />
 </div>
