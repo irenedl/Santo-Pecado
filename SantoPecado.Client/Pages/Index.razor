@@ -2,6 +2,7 @@
 @inject HttpClient HttpClient
 @inject OrderState OrderState
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JS
 
 <div class="main">
     <ul class="burger-cards">
@@ -29,7 +30,7 @@
 
             @foreach (var configuredBurger in Order.Burgers)
             {
-                <ConfiguredBurgerItem Burger="configuredBurger" OnRemoved="@(() => OrderState.RemoveConfiguredBurger(configuredBurger))" />
+                <ConfiguredBurgerItem Burger="configuredBurger" OnRemoved="@(() => RemoveBurger(configuredBurger))" />
             }
         </div>
     }
@@ -63,6 +64,14 @@
     protected override async Task OnInitializedAsync()
     {
         specials = await HttpClient.GetFromJsonAsync<List<BurgerSpecial>>("specials");
+    }
+
+    async Task RemoveBurger(Burger configuredBurger)
+    {
+        if (await JS.Confirm($"¿Deseas eliminar {configuredBurger.Special.Name} del pedido?"))
+        {
+            OrderState.RemoveConfiguredBurger(configuredBurger);
+        }
     }
 
 }

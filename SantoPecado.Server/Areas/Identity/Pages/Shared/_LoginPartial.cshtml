@@ -19,13 +19,13 @@
         <div>
             <a class="username" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@User.Identity.Name</a>
             <form asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="/" method="post">
-                <button type="submit" class="btn btn-link sign-out">Cerrar sesión</button>
+                <button type="submit" class="btn btn-link sign-out">Cerrar sesi&oacute;n</button>
             </form>
         </div>
     }
     else
     {
         <a class="sign-in" asp-area="Identity" asp-page="/Account/Register" asp-route-returnUrl="@returnUrl">Registrarme</a>
-        <a class="sign-in" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl">Iniciar Sesión</a>
+        <a class="sign-in" asp-area="Identity" asp-page="/Account/Login" asp-route-returnUrl="@returnUrl">Iniciar sesi&oacute;n</a>
     }
 </div>
