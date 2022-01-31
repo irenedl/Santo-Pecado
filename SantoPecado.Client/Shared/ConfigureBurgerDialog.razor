@@ -1,11 +1,9 @@
 ﻿@inject HttpClient HttpClient
 
-<div class="dialog-container">
-    <div class="dialog">
-        <div class="dialog-title">
-            <h2>@Burger.Special.Name</h2>
-            @Burger.Special.Description
-        </div>
+    <div class="dialog-title">
+        <h2>@Burger.Special.Name</h2>
+        @Burger.Special.Description
+    </div>
         <form class="dialog-body">
             <div>
                 <label>Tamaño:</label>
@@ -57,9 +55,7 @@
             </span>
             <button class="btn btn-success ml-auto" @onclick="OnConfirm">Añadir +</button>
         </div>
-    </div>
-</div>
-
+    
 @code {
     List<Topping> toppings;
 

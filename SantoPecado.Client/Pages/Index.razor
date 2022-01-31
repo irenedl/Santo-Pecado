@@ -49,13 +49,12 @@
 </div>
 
 
-@if (OrderState.ShowingConfigureDialog)
-{
+<TemplatedDialog Show="OrderState.ShowingConfigureDialog">
     <ConfigureBurgerDialog
         Burger="OrderState.ConfiguringBurger"
         OnCancel="OrderState.CancelConfigureBurgerDialog"
         OnConfirm="OrderState.ConfirmConfigureBurgerDialog" />
-}
+</TemplatedDialog>
 
 @code {
     List<BurgerSpecial> specials;
