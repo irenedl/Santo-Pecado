@@ -22,7 +22,7 @@ namespace SantoPecado.Server
             services.AddControllersWithViews();
             services.AddRazorPages();
 
-            services.AddDbContext<BurgerStoreContext>(options => 
+            services.AddDbContext<BurgerStoreContext>(options =>
                 options.UseSqlite("Data Source=burger.db"));
 
             services.AddDefaultIdentity<BurgerStoreUser>(options => options.SignIn.RequireConfirmedAccount = true)

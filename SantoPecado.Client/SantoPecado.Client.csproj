@@ -14,6 +14,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SantoPecado.ComponentsLibrary\SantoPecado.ComponentsLibrary.csproj" />
     <ProjectReference Include="..\SantoPecado.Shared\SantoPecado.Shared.csproj" />
+    <ProjectReference Include="..\SantoPecadoComponents\SantoPecadoComponents.csproj" />
   </ItemGroup>
 
 </Project>
