@@ -29,5 +29,11 @@ namespace SantoPecado.Client
             var orderId = await response.Content.ReadFromJsonAsync<int>();
             return orderId;
         }
+
+        public async Task SubscribeToNotifications(NotificationSubscription subscription)
+        {
+            var response = await httpClient.PutAsJsonAsync("notifications/subscribe", subscription);
+            response.EnsureSuccessStatusCode();
+        }
     }
 }

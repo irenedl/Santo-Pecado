@@ -8,6 +8,7 @@
     <link href="css/bootstrap/bootstrap.min.css" rel="stylesheet" />
     <link href="css/site.css" rel="stylesheet" />
     <link href="_content/SantoPecado.ComponentsLibrary/leaflet/leaflet.css" rel="stylesheet" />
+    <link rel="manifest" href="manifest.json" />
     <title>Santo Pecado</title>
 </head>
 <body>
@@ -27,5 +28,6 @@
     <script src="_content/SantoPecado.ComponentsLibrary/pushNotifications.js"></script>
     <script src="_content/SantoPecado.ComponentsLibrary/deliveryMap.js"></script>
     <script src="_content/SantoPecado.ComponentsLibrary/leaflet/leaflet.js"></script>
+    <script>navigator.serviceWorker.register('service-worker.js');</script>
 </body>
 </html>
