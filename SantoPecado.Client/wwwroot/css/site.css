@@ -9,6 +9,7 @@ body {
     flex-direction: column;
     font-family: 'quicksand';
     overflow-y: hidden;
+    background: linear-gradient(rgba(0,0,0,0) 60%, rgba(0,0,0,0.4) 100%);
 }
 
 form {
@@ -50,13 +51,11 @@ form {
     display: flex;
     height: 100%;
     z-index: 1;
-    background-color: white;
 }
 
 .main {
     flex-grow: 1;
     overflow-y: auto;
-    background: linear-gradient(rgba(0,0,0,0) 40%, rgba(0,0,0,0.4) 80%);
     padding: 1.5rem !important;
 }
 
@@ -106,6 +105,24 @@ form {
         border-left: 0.6rem solid transparent;
         border-right: 0.6rem solid transparent;
         border-top: 1rem solid rgb(33,32,48);
+    }
+
+.btn-warning {
+    color: #212529;
+    background-color: #fff2cc;
+    border-color: #fff2cc;
+}
+
+.btn-warning:hover {
+    color: #212529;
+    background-color: #ffc105;
+    border-color: #ffc105;
+}
+
+    .btn-warning.disabled, .btn-warning:disabled {
+        color: #212529;
+        background-color: #ffc105;
+        border-color: #ffc105;
     }
 
 .user-info {
@@ -693,7 +710,7 @@ input[type=range] {
         display: block;
         width: 200px;
         height: 100%;
-        background-color: #dc105a;
+        background-color: #1c1a2d;
         animation: progressbar-slide 1s infinite;
         animation-timing-function: ease-in-out;
     }

@@ -1,6 +1,6 @@
 ﻿<div class="cart-item">
     <a @onclick="OnRemoved" class="delete-item">x</a>
-    <div class="title">@(Burger.Size)" @Burger.Special.Name</div>
+    <div class="title">@(Burger.Size)cm @Burger.Special.Name</div>
     <ul>
         @foreach (var topping in Burger.Toppings)
         {

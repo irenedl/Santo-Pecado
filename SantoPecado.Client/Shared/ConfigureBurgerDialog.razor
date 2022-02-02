@@ -9,7 +9,7 @@
                 <label>Tamaño:</label>
                 <input type="range" min="@Burger.MinimumSize" max="@Burger.MaximumSize" step="1" @bind="Burger.Size" @bind:event="oninput" />
                 <span class="size-label">
-                    @(Burger.Size)" (€@(Burger.GetFormattedTotalPrice()))
+                    @(Burger.Size)cm (@(Burger.GetFormattedTotalPrice())€)
                 </span>
             </div>
             <div>
@@ -27,7 +27,7 @@
                 else
                 {
                     <select class="custom-select" @onchange="ToppingSelected">
-                        <option value="-1" disabled selected>(select)</option>
+                        <option value="-1" disabled selected>(Selecciona un topping...)</option>
                         @for (var i = 0; i < toppings.Count; i++)
                         {
                             <option value="@i">@toppings[i].Name - (@(toppings[i].GetFormattedPrice())€)</option>
