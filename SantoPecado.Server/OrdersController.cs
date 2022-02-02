@@ -58,7 +58,7 @@ namespace SantoPecado.Server
         public async Task<ActionResult<int>> PlaceOrder(Order order)
         {
             order.CreatedTime = DateTime.Now;
-            order.DeliveryLocation = new LatLong(51.5001, -0.1239);
+            order.DeliveryLocation = new LatLong(36.8463311, -2.4500576);
             order.UserId = GetUserId();
 
             // Enforce existence of Burger.SpecialId and Topping.ToppingId
